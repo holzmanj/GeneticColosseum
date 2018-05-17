@@ -8,7 +8,8 @@ var startTime, timer;
 var generation;
 const CODONS = ENTITY_ACTS.length;
 
-const syllables = ['asp', 'kat', 'ley', 'mas', 'zan', 'kyo', 'ba', 'tel', 'she', 'mon', 'so', 'jet', 'ryu'];
+const syllables = ['asp', 'kat', 'ley', 'mas', 'zan', 'kyo', 'ba', 'tel', 'she', 'mon', 'so', 'jat', 'ryu',
+					'aque', 'erg', 'per', 'fal', 'und', 'phi', 'os', 'vog', 'hal', 'aux'];
 const GROUND_HEIGHT      = 50;		// height of ground plane from bottom of canvas
 const GENERATION_TIMEOUT = 15;		// max number of seconds per generation
 
