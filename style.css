@@ -75,7 +75,7 @@ div.help-tip {
     width: 18px;
     height: 18px;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 19px;
     cursor: help;
 }
 
@@ -102,6 +102,8 @@ div.blank-tip-filler {
     text-align: left;
     background-color: #d3d3d3;
     position: absolute;
+    margin: auto;
+    margin-left: -100px;
     padding: 20px;
     border-radius: 3px;
     color: #000;

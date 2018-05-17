@@ -117,17 +117,21 @@ function updateLeaderboard() {
 		var row = document.createElement('tr');
 
 		var cell = document.createElement('td');
+		var content;
 		if(fighters[i].isChampion) {
-			cell.appendChild(document.createTextNode('\u2654 ' + fighters[i].name));
+			content = document.createTextNode('\u2654 ' + fighters[i].name);
 		} else {
-			cell.appendChild(document.createTextNode(fighters[i].name));
+			content = document.createTextNode(fighters[i].name);
 		}
+		cell.appendChild(content);
 		
 		cell.style.textAlign = 'right';
 		row.appendChild(cell);
 
 		cell = document.createElement('td');
-		cell.appendChild(document.createTextNode(fighters[i].generationsWon+'/'+fighters[i].generationsSurvived));
+		content = document.createTextNode(fighters[i].generationsWon+'/'+fighters[i].generationsSurvived);
+		content.alt = fighters[i].generationsWon + ' wins, ' + fighters[i].generationsSurvived + ' generations survived.';
+		cell.appendChild(content);
 		row.appendChild(cell);
 
 		cell = document.createElement('td');
