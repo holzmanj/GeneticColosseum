@@ -48,6 +48,7 @@ div#optionBlockRight {
 	text-align: left;
 	display: inline-block;
 	padding-left: 15px;
+	padding-right: 15px;
 }
 
 div#option {
@@ -59,6 +60,62 @@ div#btnWrapper {
 	padding-left: 50px;
 	display: inline-block;
 	margin: auto;
+}
+
+div#createBlock {
+	vertical-align: top;
+	display: inline-block;
+	text-align: center;
+	padding-left: 15px;
+	border-left: 1px solid #d3d3d3;
+}
+
+div.help-tip {
+	display: inline-block;
+    text-align: center;
+    background-color: #d3d3d3;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 20px;
+    cursor: help;
+}
+
+
+.help-tip:before{
+    content:'?';
+    font-weight: bold;
+    padding-left: 1px;
+    color:#fff;
+}
+
+.help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+}
+
+.help-tip p{    /* The tooltip */
+    display: none;
+    text-align: left;
+    background-color: #d3d3d3;
+    position: absolute;
+    padding: 20px;
+    /*width: 200px;*/
+    border-radius: 3px;
+    right: 20px;
+    color: #000;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.help-tip p:after{ /* Prevents the tooltip from being hidden */
+    width:100%;
+    height:40px;
+    content:'';
+    position: absolute;
+    top:-40px;
+    left:0;
 }
 
 table {
@@ -80,6 +137,7 @@ label {
 
 input {
 	font-family: 'IBM Plex Sans Light', monospace;
+	width: 150px;
 }
 
 p {

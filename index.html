@@ -49,7 +49,33 @@
 				<p>Probability that any given gene will mutate.</p>
 			</div>	
 			<div id="btnWrapper">
-				<input type="submit" name="newPop" value="New Population" onclick="createNewPopulation()">
+				<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
+			</div>
+		</div>
+		<div id="createBlock">
+			<u>Insert Custom Fighter</u>
+			<p>After creation, the custom fighter will be added to the next generation.</p>
+			<div id="option">
+				<label for="customName">Fighter Name</label>
+				<input type="text" name="customName" id="customName">
+				<div class="help-tip">
+					<p>Fighter must have 1 first name and 1 last name separated by a space.</p>
+				</div>
+			</div>
+			<div id="option">
+				<label for="customGenome">Genome</label>
+				<input type="text" name="customGenome" id="customGenome">
+				<div class="help-tip">
+					<p>Genome must be a string of exactly <u id="genomeLenHelp">20</u> numbers in range [0,3].<br>
+					0 = jump, 1 = move left, 2 = move right, 3 = shoot</p>
+				</div>
+			</div>
+			<div id="option">
+				<label for="customColor">Body Color</label>
+				<input type="color" name="customColor" id="customColor">
+			</div>
+			<div id="btnWrapper">
+				<input type="submit" name="customFighter" value="Create Fighter" onclick="insertCustomFighter()">
 			</div>
 		</div>
 	</div>

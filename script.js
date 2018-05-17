@@ -3,6 +3,7 @@
 var canvas, height, width, ctx;
 var fighters = [];
 var fightersAlive;
+var customFighter = null;
 var bullets = [];
 var startTime, timer;
 var generation;
@@ -19,6 +20,34 @@ var GENOME_LENGTH      = 20;	// number of genes in fighter genome (actions in lo
 var CULL_COUNT         = 2;		// number of weakest fighters to replace in each generation
 var MUTATION_PROB	   = 0.05;	// probability that any given gene will mutate
 var OUTSIDER_INTERVAL  = 5;		// interval of generations when an outsider is introduced into the population
+
+function insertCustomFighter() {
+	var customName = document.getElementById('customName').value.trim();
+	var customGenome = document.getElementById('customGenome').value;
+	var customColor = document.getElementById('customColor').value;
+	customColor = hexToRgb(customColor);
+
+	// guards
+	if(customName.split(' ').length != 2) {
+		alert('Invalid name.  Must have 1 first name and 1 last name separated by a space.'
+			+ '\nEx: John Smith');
+		return;
+	}
+	if(customGenome.length != GENOME_LENGTH) {
+		alert('Genome must be exactly ' + GENOME_LENGTH + ' characters long.'
+			+ '\nCurrent length: ' + customGenome.length);
+		return;
+	}
+	for(var i = 0; i < customGenome.length; i++) {
+		if(!(customGenome.charAt(i) in ['0', '1', '2', '3'])) {
+			alert('Invalid character in genome: \"' + customGenome.charAt(i)
+				+ '\"\nAcceptable characters are: {0, 1, 2, 3}');
+			return;
+		}
+	}
+
+	customFighter = new Fighter(width/2, height/2, customName, customGenome, customColor);
+}
 
 function crossGenomes(g1, g2, ratio) {
 	var divider = Math.floor(ratio * GENOME_LENGTH);
@@ -48,6 +77,14 @@ function rgbStrToArr(str) {
 	i2 = str.indexOf(")", i1+1);
 	b = str.substring(i1+1, i2);
 	return [Number(r), Number(g), Number(b)];
+}
+
+function hexToRgb(hexColor) {
+	if(hexColor.charAt(0) === '#') hexColor = hexColor.substring(1);
+	var r = parseInt('0x' + hexColor.substring(0, 2));
+	var g = parseInt('0x' + hexColor.substring(2, 4));
+	var b = parseInt('0x' + hexColor.substring(4));
+	return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
 function blendColors(c1, c2, ratio) {
@@ -143,7 +180,11 @@ function startNewGeneration() {
 	var championName = fighters[fighters.length-1].name;
 	championName = championName.substring(championName.indexOf(' '));
 	for(var i = 0; i < CULL_COUNT; i++) {
-		if(generation % OUTSIDER_INTERVAL === 0 && i === 0) {
+		if(customFighter != null) {
+			fighters.push(customFighter);
+			customFighter = null;
+			continue;
+		} else if(generation % OUTSIDER_INTERVAL === 0 && i === 0) {
 			g3 = randomGenome(GENOME_LENGTH);
 			c3 = randomColor();
 			name = randomName() + ' ' + randomName();
@@ -205,11 +246,14 @@ function createNewPopulation() {
 		return;
 	}
 
+	//change settings
 	POPULATION_SIZE = popSizeInput.value;
 	CULL_COUNT = cullCountInput.value;
 	OUTSIDER_INTERVAL = outsiderIntInput.value;
 	GENOME_LENGTH = genomeLen.value;
 	MUTATION_PROB = mutateProbInput.value;
+
+	document.getElementById('genomeLenHelp').innerHTML = GENOME_LENGTH;
 
 	fighters = [];
 	bullets = [];
