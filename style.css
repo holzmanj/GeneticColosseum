@@ -1,0 +1,100 @@
+@font-face {
+	font-family: 'IBM Plex Sans';
+	src: url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
+}
+
+body {
+	font-family: 'IBM Plex Sans Light', monospace;
+	font-weight: thin;
+}
+
+canvas {
+	padding-left: 0;
+	padding-right: 0;
+	margin-top: 50px;
+    margin-right: auto;
+    margin-left: 20px;
+    display: block;
+    border: 1px solid #d3d3d3;
+}
+
+div#upperContent {
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+	margin-right: 200px;
+}
+
+div#lowerContent {
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+	padding-top: 50px;
+}
+
+div#leaderboard {
+	text-align: center;
+	display: inline-block;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	padding-top: 50px;
+	padding-right: 20px;
+}
+
+div#canv {
+	display: inline-block;
+	margin-right: -20px;
+}
+
+@media screen and (max-width: 1280px) {
+	div#leaderboard, div#canv {
+		max-width: 100%;
+	}
+}
+
+div#optionBlockLeft {
+	margin-left: auto;
+	margin-right: -50px;
+}
+
+div#optionBlockRight {
+	margin-left: auto;
+	margin-right: 250px;
+}
+
+div#option {
+	padding-bottom: 15px;
+}
+
+div#btnWrapper {
+	padding-top: 20px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 0px solid black;
+	padding: 4px;
+}
+
+caption {
+	font-family: 'IBM Plex Sans Normal', monospace;
+	font-weight: normal;
+}
+
+label {
+	padding: 5px;
+}
+
+input {
+	font-family: 'IBM Plex Sans Light', monospace;
+}
+
+p {
+	font-size: 12px;
+}

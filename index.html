@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Genetic Collosseum</title>
+	<script type="text/javascript" src="entity.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="upperContent">
+		<div id="leaderboard">
+			<table id="ranking"></table>
+		</div>
+		<div id="canv">
+			<canvas id="mainCanvas">
+				<p>fallback content</p>
+			</canvas>
+		</div>
+	</div>
+	<div id="lowerContent">
+		<div id="optionBlockLeft">
+			<div id="option">
+				<label for="popSize">Population Size</label>
+				<input type="number" name="popSize" id="popSize" value="10" min="3" step="1">
+				<p>Number of fighters in the population.</p>
+			</div>
+			<div id="option">
+				<label for="cullCount">Cull Count</label>
+				<input type="number" name="cullCount" id="cullCount" value="2" min="1" step="1">
+				<p>Number of weakest fighters to replace every generation.</p>
+			</div>
+			<div id="option">
+				<label for="outsiderInt">Outsider Interval</label>
+				<input type="number" name="outsiderInt" id="outsiderInt" value="5" min="1">
+				<p>Every <i>n</i> generations a randomized "outsider" is introduced into the population.</p>
+			</div>
+		</div>
+		<div id="optionBlockRight">
+			<div id="option">
+				<label for="genomeLen">Genome Length</label>
+				<input type="number" name="genomeLen" id="genomeLen" value="20" min="1" step="1">
+				<p>Number of genes in a fighter's genome (sequence of actions).</p>
+			</div>
+			<div id="option">
+				<label for="mutateProb">Mutation Probability</label>
+				<input type="number" name="mutateProb" id="mutateProb" value="0.05" min="0.0" max="1.0" step="0.01">
+				<p>Probability that any given gene will mutate.</p>
+			</div>	
+			<div id="btnWrapper">
+				<input type="submit" name="newPop" value="New Population" onclick="createNewPopulation()">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
