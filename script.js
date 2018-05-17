@@ -359,7 +359,7 @@ function render(ctx) {
 		bullets[i].draw(ctx);
 	}
 
-	// generation info
+	// timer
 	ctx.font = '12px IBM Plex Mono Light';
 	ctx.fillStyle = 'black';
 	ctx.fillText(GENERATION_TIMEOUT - timer, 15, 25);

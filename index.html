@@ -20,63 +20,80 @@
 		</div>
 	</div>
 	<div id="lowerContent">
-		<div id="optionBlockLeft">
-			<div id="option">
-				<label for="popSize">Population Size</label>
-				<input type="number" name="popSize" id="popSize" value="10" min="3" step="1">
-				<p>Number of fighters in the population.</p>
+		<div id="optionsWrapper">
+			<div class="blockTitle">
+				<u>Population Settings</u>
 			</div>
-			<div id="option">
-				<label for="cullCount">Cull Count</label>
-				<input type="number" name="cullCount" id="cullCount" value="2" min="1" step="1">
-				<p>Number of weakest fighters to replace every generation.</p>
+			<div class="optionBlock">
+				<div class="option">
+					<label for="popSize">Population Size</label>
+					<input type="number" name="popSize" id="popSize" value="10" min="3" step="1">
+					<div class="help-tip">
+						<p>Number of fighters in the population.</p>
+					</div>
+				</div>
+				<div class="option">
+					<label for="cullCount">Cull Count</label>
+					<input type="number" name="cullCount" id="cullCount" value="2" min="1" step="1">
+					<div class="help-tip">
+						<p>Number of weakest fighters to replace every generation.</p>
+					</div>
+				</div>
+				<div class="option">
+					<label for="outsiderInt">Outsider Interval</label>
+					<input type="number" name="outsiderInt" id="outsiderInt" value="5" min="1">
+					<div class="help-tip">
+						<p>Every <i>n</i> generations a randomized "outsider" is<br>introduced into the population.</p>
+					</div>
+				</div>
 			</div>
-			<div id="option">
-				<label for="outsiderInt">Outsider Interval</label>
-				<input type="number" name="outsiderInt" id="outsiderInt" value="5" min="1">
-				<p>Every <i>n</i> generations a randomized "outsider" is<br>introduced into the population.</p>
-			</div>
-		</div>
-		<div id="optionBlockRight">
-			<div id="option">
-				<label for="genomeLen">Genome Length</label>
-				<input type="number" name="genomeLen" id="genomeLen" value="20" min="1" step="1">
-				<p>Number of genes in a fighter's genome (sequence of actions).</p>
-			</div>
-			<div id="option">
-				<label for="mutateProb">Mutation Probability</label>
-				<input type="number" name="mutateProb" id="mutateProb" value="0.05" min="0.0" max="1.0" step="0.01">
-				<p>Probability that any given gene will mutate.</p>
-			</div>	
-			<div id="btnWrapper">
-				<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
+			<div class="optionBlock">
+				<div class="option">
+					<label for="genomeLen">Genome Length</label>
+					<input type="number" name="genomeLen" id="genomeLen" value="20" min="1" step="1">
+					<div class="help-tip">
+						<p>Number of genes in a fighter's genome (sequence of actions).</p>
+					</div>
+				</div>
+				<div class="option">
+					<label for="mutateProb">Mutation Probability</label>
+					<input type="number" name="mutateProb" id="mutateProb" value="0.05" min="0.0" max="1.0" step="0.01">
+					<div class="help-tip">
+						<p>Probability that any given gene will mutate.</p>
+					</div>
+				</div>	
+				<div id="btnWrapper">
+					<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
+				</div>
 			</div>
 		</div>
 		<div id="createBlock">
-			<u>Insert Custom Fighter</u>
-			<p>After creation, the custom fighter will be added to the next generation.</p>
-			<div id="option">
-				<label for="customName">Fighter Name</label>
-				<input type="text" name="customName" id="customName">
-				<div class="help-tip">
-					<p>Fighter must have 1 first name and 1 last name separated by a space.</p>
+			<div class="blockTitle">
+				<u>Insert Custom Fighter</u>
+			</div>
+			<div class="optionBlock">
+				<div class="option">
+					<label for="customName">Fighter Name</label>
+					<input type="text" name="customName" id="customName" value="">
+					<div class="help-tip">
+						<p>Fighter must have 1 first name and 1 last name separated by a space.</p>
+					</div>
 				</div>
-			</div>
-			<div id="option">
-				<label for="customGenome">Genome</label>
-				<input type="text" name="customGenome" id="customGenome">
-				<div class="help-tip">
-					<p>Genome must be a string of exactly <u id="genomeLenHelp">20</u> numbers in range [0,3].<br>
-					0 = jump, 1 = move left, 2 = move right, 3 = shoot</p>
+				<div class="option">
+					<label for="customGenome">Genome</label>
+					<input type="text" name="customGenome" id="customGenome" value="">
+					<div class="help-tip">
+						<p>Genome must be a string of exactly <u id="genomeLenHelp">20</u> numbers in range [0,3].<br>
+						0 = jump, 1 = move left, 2 = move right, 3 = shoot</p>
+					</div>
 				</div>
-			</div>
-			<div id="option">
-				<label for="customColor">Body Color</label>
-				<input type="color" name="customColor" id="customColor">
-			</div>
-			<div id="btnWrapper">
-				<input type="submit" name="customFighter" value="Create Fighter" onclick="insertCustomFighter()">
-			</div>
+				<div class="option">
+					<label for="customColor">Body Color</label>
+					<input type="color" name="customColor" id="customColor" value="#d3d3d3">
+					<div class="blank-tip-filler"></div>
+				</div>
+			</div><br>
+			<input type="submit" name="customFighter" value="Create Fighter" onclick="insertCustomFighter()">
 		</div>
 	</div>
 </body>
