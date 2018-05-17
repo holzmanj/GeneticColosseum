@@ -9,60 +9,48 @@ body {
 }
 
 canvas {
-	padding-left: 0;
-	padding-right: 0;
-	margin-top: 50px;
-    margin-right: auto;
-    margin-left: 20px;
     display: block;
     border: 1px solid #d3d3d3;
 }
 
 div#upperContent {
 	text-align: center;
-	display: flex;
-	flex-wrap: wrap;
-	margin: auto;
-	margin-right: 200px;
-}
-
-div#lowerContent {
-	text-align: center;
-	display: flex;
-	flex-wrap: wrap;
-	margin: auto;
+	display: block;
+	margin: 0, auto;
 	padding-top: 50px;
 }
 
 div#leaderboard {
 	text-align: center;
 	display: inline-block;
-	margin-top: auto;
-	margin-bottom: auto;
-	margin-left: auto;
-	padding-top: 50px;
 	padding-right: 20px;
+	vertical-align: top;
 }
 
 div#canv {
 	display: inline-block;
-	margin-right: -20px;
+	padding-left: 20px;
 }
 
-@media screen and (max-width: 1280px) {
-	div#leaderboard, div#canv {
-		max-width: 100%;
-	}
+div#lowerContent {
+	text-align: center;
+	display: block;
+	margin: 0, auto;
+	padding-top: 50px;
 }
 
 div#optionBlockLeft {
-	margin-left: auto;
-	margin-right: -50px;
+	vertical-align: top;
+	text-align: right;
+	display: inline-block;
+	padding-right: 15px;
 }
 
 div#optionBlockRight {
-	margin-left: auto;
-	margin-right: 250px;
+	vertical-align: top;
+	text-align: left;
+	display: inline-block;
+	padding-left: 15px;
 }
 
 div#option {
@@ -71,6 +59,9 @@ div#option {
 
 div#btnWrapper {
 	padding-top: 20px;
+	padding-left: 50px;
+	display: inline-block;
+	margin: auto;
 }
 
 table {
