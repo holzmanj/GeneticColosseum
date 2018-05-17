@@ -1,4 +1,4 @@
-const ENTITY_ACTS = ['JUMP', 'LEFT', 'RIGHT', 'SHOOT'];
+const ENTITY_ACTS = ['JUMP', 'MOVE_L', 'MOVE_R', 'SHOOT_L', 'SHOOT_R'];
 const CYCLES_PER_ACT = 10;
 
 const DRAW_FIGHTER_NAMES   = false;
@@ -38,7 +38,7 @@ Fighter.prototype.switchAct = function() {
 
 Fighter.prototype.moveStep = function() {
 	var returnObject = null;
-	if(--this.cycleCounter < 0) {
+	if(--this.cycleCounter <= 0) {
 		this.switchAct();
 		this.cycleCounter = CYCLES_PER_ACT;
 	}
@@ -50,21 +50,22 @@ Fighter.prototype.moveStep = function() {
 				this.yVelocity = 15;
 			}
 			break;
-		case 'LEFT':
+		case 'MOVE_L':
 			this.xVelocity = -5;
 			this.direction = 'LEFT';
 			break;
-		case 'RIGHT':
+		case 'MOVE_R':
 			this.xVelocity = 5;
 			this.direction = 'RIGHT';
 			break;
-		case 'SHOOT':
-			if(this.cycleCounter % 5 === 0) {
-				if(this.direction === 'LEFT') {
-					returnObject = new Bullet(this.x-6, this.y-15, -10);
-				} else {
-					returnObject = new Bullet(this.x+6, this.y-15, 10);
-				}
+		case 'SHOOT_L':
+			if(this.cycleCounter === 5) {
+				returnObject = new Bullet(this.x-6, this.y-15, -10);
+			}
+			break;
+		case 'SHOOT_R':
+			if(this.cycleCounter === 5) {
+				returnObject = new Bullet(this.x+6, this.y-15, 10);
 			}
 			break;
 	}

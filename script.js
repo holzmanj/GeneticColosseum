@@ -39,9 +39,9 @@ function insertCustomFighter() {
 		return;
 	}
 	for(var i = 0; i < customGenome.length; i++) {
-		if(!(customGenome.charAt(i) in ['0', '1', '2', '3'])) {
+		if(!(customGenome.charAt(i) in ['0', '1', '2', '3', '4'])) {
 			alert('Invalid character in genome: \"' + customGenome.charAt(i)
-				+ '\"\nAcceptable characters are: {0, 1, 2, 3}');
+				+ '\"\nAcceptable characters are: {0, 1, 2, 3, 4}');
 			return;
 		}
 	}
