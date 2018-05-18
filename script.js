@@ -28,6 +28,16 @@ function showNotification(message) {
 	setTimeout(function(){ n.className = n.className.replace('show', ''); }, 2000);
 }
 
+function updateNotifications() {
+	var n = document.getElementById('notification');
+	if(n.className === 'show') {
+		return;
+	} else if(notifyQueue.length >= 1){
+		var msg = notifyQueue.pop();
+		showNotification(msg);
+	}
+}
+
 function insertCustomFighter() {
 	var customName = document.getElementById('customName').value.trim();
 	var customGenome = document.getElementById('customGenome').value;
@@ -45,14 +55,32 @@ function insertCustomFighter() {
 			+ '\nCurrent length: ' + customGenome.length);
 		return;
 	}
+	// convert user genome notation to number array
+	var decodedGenome = '';
 	for(var i = 0; i < customGenome.length; i++) {
-		if(!(customGenome.charAt(i) in ['0', '1', '2', '3', '4'])) {
-			alert('Invalid character in genome: \"' + customGenome.charAt(i)
-				+ '\"\nAcceptable characters are: {0, 1, 2, 3, 4}');
-			return;
+		switch(customGenome.charAt(i)) {
+			case '^':	// jump
+				decodedGenome += '0';
+				break;
+			case '[':	// move left
+				decodedGenome += '1';
+				break;
+			case ']':	// move right
+				decodedGenome += '2';
+				break;
+			case '<':	// shoot left
+				decodedGenome += '3';
+				break;
+			case '>':	// shoot right
+				decodedGenome += '4';
+				break;
+			default:
+				alert('Invalid character in genome: \"' + customGenome.charAt(i)
+				+ '\"\nAcceptable characters are: ^ [ ] < > (see key)');
+				return;
 		}
 	}
-	customFighter = new Fighter(width/2, height/2, customName, customGenome, customColor);
+	customFighter = new Fighter(width/2, height/2, customName, decodedGenome, customColor);
 	notifyQueue.push('Adding ' + customName + ' to the next generation.');
 }
 
@@ -265,6 +293,7 @@ function createNewPopulation() {
 	MUTATION_PROB = mutateProbInput.value;
 
 	document.getElementById('genomeLenHelp').innerHTML = GENOME_LENGTH;
+	document.getElementById('customGenome').maxLength = GENOME_LENGTH;
 
 	fighters = [];
 	bullets = [];
@@ -350,16 +379,6 @@ function updateBullets() {
 		if(deadBullets.includes(i)) {
 			bullets.splice(i, 1);
 		}
-	}
-}
-
-function updateNotifications() {
-	var n = document.getElementById('notification');
-	if(n.className === 'show') {
-		return;
-	} else if(notifyQueue.length >= 1){
-		var msg = notifyQueue.pop();
-		showNotification(msg);
 	}
 }
 

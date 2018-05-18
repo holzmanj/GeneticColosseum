@@ -22,7 +22,7 @@
 	<div id="lowerContent">
 		<div id="optionsWrapper">
 			<div class="blockTitle">
-				<u>Start New Population</u>
+				Start New Population
 			</div>
 			<div class="optionBlock">
 				<div class="option">
@@ -69,7 +69,7 @@
 		</div>
 		<div id="createBlock">
 			<div class="blockTitle">
-				<u>Insert Custom Fighter</u>
+				Insert Custom Fighter
 			</div>
 			<div class="optionBlock">
 				<div class="option">
@@ -81,11 +81,9 @@
 				</div>
 				<div class="option">
 					<label for="customGenome">Genome</label>
-					<input type="text" name="customGenome" id="customGenome" value="">
+					<input type="text" name="customGenome" id="customGenome" value="" maxlength="20">
 					<div class="help-tip">
-						<p>Genome must be a string of exactly <u id="genomeLenHelp">20</u> numbers in range [0,4].<br>
-							0 = jump | 1 = move left | 2 = move right | 3 = shoot left | 4 = shoot right
-						</p>
+						<p>Genome must be a string of exactly <u id="genomeLenHelp">20</u> genome symbols (see key).</p>
 					</div>
 				</div>
 				<div class="option">
@@ -95,6 +93,31 @@
 				</div>
 			</div><br>
 			<input type="submit" name="customFighter" value="Create Fighter" onclick="insertCustomFighter()">
+		</div>
+		<div class="optionBlock">
+			<table id="genomeKey">
+				<caption>Genome Key</caption>
+				<tr>
+					<td>^</td>
+					<td>Jump</td>
+				</tr>
+				<tr>
+					<td>[</td>
+					<td>Move left</td>
+				</tr>
+				<tr>
+					<td>]</td>
+					<td>Move right</td>
+				</tr>
+				<tr>
+					<td><</td>
+					<td>Shoot left</td>
+				</tr>
+				<tr>
+					<td>></td>
+					<td>Shoot right</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 	<div id="notification">default notification text</div>

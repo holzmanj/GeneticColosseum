@@ -111,7 +111,7 @@ div.blank-tip-filler {
     line-height: 1.4;
 }
 
-.help-tip p:after{ /* Prevents the tooltip from being hidden */
+.help-tip p:after { /* Prevents the tooltip from being hidden */
     width:100%;
     height:40px;
     content:'';
@@ -123,9 +123,19 @@ table {
 	border-collapse: collapse;
 }
 
-table, th, td {
+table, td {
 	border: 0px solid black;
 	padding: 4px;
+}
+
+table#genomeKey {
+	margin-top: 30px;
+	color: #5A5A5A;
+	font-size: 13px;
+}
+
+#genomeKey td {
+	padding: 2px;
 }
 
 caption {
@@ -143,6 +153,7 @@ input {
 
 .blockTitle {
 	margin-bottom: 20px;
+	text-decoration: underline;
 }
 
 p {
@@ -157,22 +168,20 @@ p {
 
 #notification {
     visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #d3d3d3;
-    color: black;
+    background-color: #B8D9B8;
+    color: #455C45;
     text-align: center;
     border-radius: 3px;
     padding: 16px;
     position: fixed;
     z-index: 1;
-    left: 50%;
     bottom: 30px;
+    left: 50%;
+	transform: translateX(-50%);
 }
 
 #notification.show {
     visibility: visible;
-
     -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
     animation: fadein 0.5s, fadeout 0.5s 1.5s;
 }
