@@ -7,8 +7,8 @@ var customFighter = null;
 var bullets = [];
 var startTime, timer;
 var generation;
+var notifyQueue = [];
 const CODONS = ENTITY_ACTS.length;
-
 const syllables = ['asp', 'kat', 'ley', 'mas', 'zan', 'kyo', 'ba', 'tel', 'she', 'mon', 'so', 'jat', 'ryu',
 					'aque', 'erg', 'per', 'fal', 'und', 'phi', 'os', 'vog', 'hal', 'aux'];
 const GROUND_HEIGHT      = 50;		// height of ground plane from bottom of canvas
@@ -20,6 +20,13 @@ var GENOME_LENGTH      = 20;	// number of genes in fighter genome (actions in lo
 var CULL_COUNT         = 2;		// number of weakest fighters to replace in each generation
 var MUTATION_PROB	   = 0.05;	// probability that any given gene will mutate
 var OUTSIDER_INTERVAL  = 5;		// interval of generations when an outsider is introduced into the population
+
+function showNotification(message) {
+	var n = document.getElementById('notification');
+	n.innerHTML = message;
+	n.className = 'show';
+	setTimeout(function(){ n.className = n.className.replace('show', ''); }, 2000);
+}
 
 function insertCustomFighter() {
 	var customName = document.getElementById('customName').value.trim();
@@ -45,8 +52,8 @@ function insertCustomFighter() {
 			return;
 		}
 	}
-
 	customFighter = new Fighter(width/2, height/2, customName, customGenome, customColor);
+	notifyQueue.push('Adding ' + customName + ' to the next generation.');
 }
 
 function crossGenomes(g1, g2, ratio) {
@@ -276,6 +283,8 @@ function createNewPopulation() {
 			randomColor()));
 	}
 	fightersAlive = POPULATION_SIZE;
+
+	notifyQueue.push('Population created.');
 }
 
 function updateFighters() {
@@ -344,6 +353,16 @@ function updateBullets() {
 	}
 }
 
+function updateNotifications() {
+	var n = document.getElementById('notification');
+	if(n.className === 'show') {
+		return;
+	} else if(notifyQueue.length >= 1){
+		var msg = notifyQueue.pop();
+		showNotification(msg);
+	}
+}
+
 function render(ctx) {
 	// background
 	ctx.fillStyle = 'rgb(241, 241, 241';
@@ -372,12 +391,10 @@ function render(ctx) {
 function loop(ctx) {
 	updateFighters();
 	updateBullets();
-	
-	// update timer
 	timer = Math.floor((new Date().getTime() - startTime) / 1000);
-
 	render(ctx);
 	updateLeaderboard();
+	updateNotifications();
 	requestAnimationFrame(function() {
 		loop(ctx);
 	});

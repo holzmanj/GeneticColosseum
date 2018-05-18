@@ -94,7 +94,7 @@ div.blank-tip-filler {
 
 .help-tip:hover p{
     display:block;
-    transform-origin: 100% 0%;
+    transform-origin: 0% 0%;
 }
 
 .help-tip p{    /* The tooltip */
@@ -103,7 +103,7 @@ div.blank-tip-filler {
     background-color: #d3d3d3;
     position: absolute;
     margin: auto;
-    margin-left: -100px;
+    
     padding: 10px;
     border-radius: 3px;
     color: #000;
@@ -117,7 +117,6 @@ div.blank-tip-filler {
     content:'';
     position: absolute;
     top:-40px;
-    left:0;
 }
 
 table {
@@ -148,4 +147,53 @@ input {
 
 p {
 	font-size: 12px;
+}
+
+/***********************
+ *                     *
+ *    NOTIFICATIONS    *
+ *                     *
+ ***********************/
+
+#notification {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #d3d3d3;
+    color: black;
+    text-align: center;
+    border-radius: 3px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+}
+
+#notification.show {
+    visibility: visible;
+
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
+    animation: fadein 0.5s, fadeout 0.5s 1.5s;
+}
+
+/* Animations to fade the notification in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 }
