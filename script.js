@@ -159,7 +159,7 @@ function updateLeaderboard() {
 			content = document.createTextNode(fighters[i].name);
 		}
 		cell.appendChild(content);
-		
+		cell.width = '120px';
 		cell.style.textAlign = 'right';
 		row.appendChild(cell);
 
@@ -175,8 +175,9 @@ function updateLeaderboard() {
 		row.appendChild(cell);
 
 		cell = document.createElement('td');
-		cell.appendChild(document.createTextNode(fighters[i].health > 0 ? "\u2665" : '\u2620'));
-		cell.style.textAlign = 'center';
+		content = document.createTextNode(fighters[i].health > 0 ? '' : '\u2620');
+		cell.appendChild(content);
+		cell.width = '20px';
 		row.appendChild(cell);	
 
 		tab.appendChild(row);
@@ -218,6 +219,7 @@ function startNewGeneration() {
 	var g3, c3;
 	var championName = fighters[fighters.length-1].name;
 	championName = championName.substring(championName.indexOf(' '));
+
 	for(var i = 0; i < CULL_COUNT; i++) {
 		if(customFighter != null) {
 			fighters.push(customFighter);
@@ -235,6 +237,8 @@ function startNewGeneration() {
 			// take champion's last name
 			name = randomName() + championName;
 		}
+
+
 		fighters.push(new Fighter(width/2, height/2, name, g3, c3));
 	}
 

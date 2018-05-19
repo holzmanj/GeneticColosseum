@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Serif');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
 
 body {
-	font-family: 'IBM Plex Sans Light', monospace;
+	font-family: 'IBM Plex Sans Light', 'IBM Plex Sans', monospace;
 	font-weight: thin;
 }
 
@@ -147,7 +147,7 @@ label {
 }
 
 input {
-	font-family: 'IBM Plex Sans Light', monospace;
+	font-family: 'IBM Plex Sans Light', 'IBM Plex Sans', monospace;
 	width: 150px;
 }
 
