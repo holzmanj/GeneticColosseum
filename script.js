@@ -154,12 +154,11 @@ function updateLeaderboard() {
 		var cell = document.createElement('td');
 		var content;
 		if(fighters[i].isChampion) {
-			content = document.createTextNode('\u2654 ' + fighters[i].name);
+			content = document.createTextNode('\u2654\uFE0E ' + fighters[i].name);
 		} else {
 			content = document.createTextNode(fighters[i].name);
 		}
 		cell.appendChild(content);
-		cell.width = '120px';
 		cell.style.textAlign = 'right';
 		row.appendChild(cell);
 
@@ -175,7 +174,7 @@ function updateLeaderboard() {
 		row.appendChild(cell);
 
 		cell = document.createElement('td');
-		content = document.createTextNode(fighters[i].health > 0 ? '' : '\u2620');
+		content = document.createTextNode(fighters[i].health > 0 ? '' : '\u2620\uFE0E');
 		cell.appendChild(content);
 		cell.width = '20px';
 		row.appendChild(cell);	
