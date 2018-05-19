@@ -34,30 +34,30 @@
 				</div>
 				<div class="option">
 					<label for="cullCount">Cull Count</label>
-					<input type="number" name="cullCount" id="cullCount" value="2" min="1" step="1">
+					<input type="number" name="cullCount" id="cullCount" value="4" min="1" step="1">
 					<div class="help-tip">
 						<p>Number of weakest fighters to replace every generation.</p>
 					</div>
 				</div>
 				<div class="option">
-					<label for="outsiderInt">Outsider Interval</label>
-					<input type="number" name="outsiderInt" id="outsiderInt" value="5" min="1">
+					<label for="outsiderCount">Outsider Count</label>
+					<input type="number" name="outsiderCount" id="outsiderCount" value="1" min="0">
 					<div class="help-tip">
-						<p>Every <i>n</i> generations a randomized "outsider" is<br>introduced into the population.</p>
+						<p>Number of randomized "outsiders" to introduce every generation.</p>
 					</div>
 				</div>
 			</div>
 			<div class="optionBlock">
 				<div class="option">
 					<label for="genomeLen">Genome Length</label>
-					<input type="number" name="genomeLen" id="genomeLen" value="20" min="1" step="1">
+					<input type="number" name="genomeLen" id="genomeLen" value="10" min="1" step="1">
 					<div class="help-tip">
 						<p>Number of genes in a fighter's genome (sequence of actions).</p>
 					</div>
 				</div>
 				<div class="option">
 					<label for="mutateProb">Mutation Probability</label>
-					<input type="number" name="mutateProb" id="mutateProb" value="0.05" min="0.0" max="1.0" step="0.01">
+					<input type="number" name="mutateProb" id="mutateProb" value="0.10" min="0.0" max="1.0" step="0.01">
 					<div class="help-tip">
 						<p>Probability that any given gene will mutate.</p>
 					</div>
@@ -77,9 +77,7 @@
 				</div>
 			</div>
 			<br>
-			<div id="btnWrapper">
-				<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
-			</div>
+			<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
 		</div>
 		<div id="createBlock">
 			<div class="blockTitle">

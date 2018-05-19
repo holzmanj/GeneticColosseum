@@ -17,10 +17,10 @@ const TIMER_BAR_WIDTH    = 100;		// width of timer bar in pixels
 
 // User-alterable settings
 var POPULATION_SIZE     = 10;		// number of fighters in population
-var GENOME_LENGTH       = 20;		// number of genes in fighter genome (actions in loop)
-var CULL_COUNT          = 2;		// number of weakest fighters to replace in each generation
-var MUTATION_PROB	    = 0.05;		// probability that any given gene will mutate
-var OUTSIDER_INTERVAL   = 5;		// interval of generations when an outsider is introduced into the population
+var GENOME_LENGTH       = 10;		// number of genes in fighter genome (actions in loop)
+var CULL_COUNT          = 4;		// number of weakest fighters to replace in each generation
+var MUTATION_PROB	    = 0.10;		// probability that any given gene will mutate
+var OUTSIDER_COUNT   	= 1;		// number of outsiders introduced every generation
 var CROSSOVER_TECHNIQUE = '1pt';	// Method used for crossing genomes for new offspring
 
 function showNotification(message) {
@@ -239,26 +239,36 @@ function startNewGeneration() {
 	var championName = fighters[fighters.length-1].name;
 	championName = championName.substring(championName.indexOf(' '));
 
-	for(var i = 0; i < CULL_COUNT; i++) {
-		if(customFighter != null) {
-			fighters.push(customFighter);
-			customFighter = null;
-			continue;
-		} else if(generation % OUTSIDER_INTERVAL === 0 && i === 0) {
-			g3 = randomGenome(GENOME_LENGTH);
-			c3 = randomColor();
-			name = randomName() + ' ' + randomName();
-		} else {
-			// cross genomes of top 2 fighters
-			g3 = crossGenomes(g1, g2, (i+1)/(CULL_COUNT+1));
-			g3 = mutateGenome(g3);
-			c3 = blendColors(c1, c2, (i+1)/(CULL_COUNT+1));
-			// take champion's last name
-			name = randomName() + championName;
-		}
+	var offspringCount;
+	if(OUTSIDER_COUNT === 0) {
+		offspringCount = CULL_COUNT - (customFighter === null ? 0 : 1);
+	} else {
+		offspringCount = CULL_COUNT - OUTSIDER_COUNT;
+	}
 
-
+	// generate offspring
+	for(var i = 0; i < offspringCount; i++) {
+		// cross genomes of top 2 fighters
+		g3 = crossGenomes(g1, g2, (i+1)/(CULL_COUNT+1));
+		g3 = mutateGenome(g3);
+		c3 = blendColors(c1, c2, (i+1)/(CULL_COUNT+1));
+		// take champion's last name
+		name = randomName() + championName;
 		fighters.push(new Fighter(width/2, height/2, name, g3, c3));
+	}
+
+	// generate outsiders
+	var outsidersToGenerate = OUTSIDER_COUNT - (customFighter === null ? 0 : 1);
+	for(var i = 0; i < outsidersToGenerate; i++) {
+		g3 = randomGenome(GENOME_LENGTH);
+		c3 = randomColor();
+		name = randomName() + ' ' + randomName();
+		fighters.push(new Fighter(width/2, height/2, name, g3, c3));
+	}
+
+	if(customFighter !== null) {
+		fighters.push(customFighter);
+		customFighter = null;
 	}
 
 	// reassign fighter IDs, reset health and position
@@ -278,16 +288,12 @@ function startNewGeneration() {
 function createNewPopulation() {
 	var popSizeInput = document.getElementById('popSize');
 	var cullCountInput = document.getElementById('cullCount');
-	var outsiderIntInput = document.getElementById('outsiderInt');
+	var outsiderCountInput = document.getElementById('outsiderCount');
 	var genomeLenInput = document.getElementById('genomeLen');
 	var mutateProbInput = document.getElementById('mutateProb');
 	var crossTechniqueInput = document.getElementById('crossoverTechnique');
 
 	// guards
-	if(popSizeInput.value < 3 || popSizeInput.value - cullCountInput.value < 2) {
-		alert('Population size is too small.  Must have at least two survivors and one culled fighter per generation.');
-		return;
-	}
 	if(!popSizeInput.checkValidity()){
 		alert('Invalid population size.  Must be an integer greater than 2.');
 		return;
@@ -296,8 +302,16 @@ function createNewPopulation() {
 		alert('Invalid cull count.  Must be a positive integer.');
 		return;
 	}
-	if(!outsiderIntInput.checkValidity()) {
+	if(popSizeInput.value < 3 || popSizeInput.value - cullCountInput.value < 2) {
+		alert('Population size is too small.  Must have at least two survivors and one culled fighter per generation.');
+		return;
+	}
+	if(!outsiderCountInput.checkValidity()) {
 		alert('Invalid outsider interval.  Must be a positive integer.');
+		return;
+	}
+	if(outsiderCountInput.value > cullCountInput.value) {
+		alert('Outsider count cannot be larger than cull count.');
 		return;
 	}
 	if(!genomeLenInput.checkValidity()) {
@@ -312,16 +326,16 @@ function createNewPopulation() {
 	//change settings
 	POPULATION_SIZE = popSizeInput.value;
 	CULL_COUNT = cullCountInput.value;
-	OUTSIDER_INTERVAL = outsiderIntInput.value;
+	OUTSIDER_COUNT = outsiderCountInput.value;
 	GENOME_LENGTH = genomeLen.value;
 	MUTATION_PROB = mutateProbInput.value;
 	CROSSOVER_TECHNIQUE = crossTechniqueInput.value;
 
 	document.getElementById('genomeLenHelp').innerHTML = GENOME_LENGTH;
-	document.getElementById('customGenome').maxLength = GENOME_LENGTH;
+	document.getElementById('customGenome').maxLength  = GENOME_LENGTH;
 
 	fighters = [];
-	bullets = [];
+	bullets  = [];
 	
 	// initialize timer
 	startTime = new Date().getTime();
