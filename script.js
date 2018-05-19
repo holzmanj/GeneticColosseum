@@ -411,11 +411,11 @@ function render(ctx) {
 	// timer
 	var timestamp = new Date().getTime();
 	var widthCoefficient = 1 - ((timestamp - lastHitTime) / (1000 * GENERATION_TIMEOUT));
-	ctx.fillStyle = 'rgb(120, 120, 120)';
+	ctx.fillStyle = 'rgb(180, 180, 180)';
 	ctx.fillRect(15, 15, TIMER_BAR_WIDTH * widthCoefficient, 10);
-	ctx.strokeStyle = 'rgb(120, 120, 120)';
+	ctx.strokeStyle = 'rgb(180, 180, 180)';
 	ctx.lineWidth = 1;
-	ctx.strokeRect(15, 15, TIMER_BAR_WIDTH, 10);
+	ctx.strokeRect(15.5, 15.5, TIMER_BAR_WIDTH, 10);
 	/*
 	ctx.font = '12px IBM Plex Mono Light';
 	ctx.fillStyle = 'black';
