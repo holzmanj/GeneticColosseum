@@ -5,14 +5,15 @@ var fighters = [];
 var fightersAlive;
 var customFighter = null;
 var bullets = [];
-var startTime, timer;
+var startTime, lastHitTime, timer;
 var generation;
 var notifyQueue = [];
 const CODONS = ENTITY_ACTS.length;
 const syllables = ['asp', 'kat', 'ley', 'mas', 'zan', 'kyo', 'ba', 'tel', 'she', 'mon', 'so', 'jat', 'ryu',
 					'aque', 'erg', 'per', 'fal', 'und', 'phi', 'os', 'vog', 'hal', 'aux'];
 const GROUND_HEIGHT      = 50;		// height of ground plane from bottom of canvas
-const GENERATION_TIMEOUT = 15;		// max number of seconds per generation
+const GENERATION_TIMEOUT = 5;		// number of seconds to wait after damage before starting new generation
+const TIMER_BAR_WIDTH    = 100;		// width of timer bar in pixels
 
 // User-alterable settings
 var POPULATION_SIZE    = 10;	// number of fighters in population
@@ -251,7 +252,7 @@ function startNewGeneration() {
 
 	updateLeaderboard();
 
-	startTime = new Date().getTime();
+	startTime = lastHitTime = new Date().getTime();
 	fightersAlive = fighters.length;
 }
 
@@ -367,10 +368,13 @@ function updateBullets() {
 		// check for collisions with fighters
 		for(var j = 0; j < fighters.length; j++) {
 			if(fighters[j].health > 0 && bullets[i].hits(fighters[j])) {
+				var timestamp = new Date().getTime();
+				lastHitTime = timestamp;
+
 				// fighters are given scores on death
 				if(--fighters[j].health <= 0) {
 					fightersAlive--;
-					fighters[j].score = new Date().getTime() - startTime;
+					fighters[j].score = timestamp - startTime;
 				}
 				if(!deadBullets.includes(i)) deadBullets.push(i);
 			}
@@ -405,15 +409,24 @@ function render(ctx) {
 	}
 
 	// timer
+	var timestamp = new Date().getTime();
+	var widthCoefficient = 1 - ((timestamp - lastHitTime) / (1000 * GENERATION_TIMEOUT));
+	ctx.fillStyle = 'rgb(120, 120, 120)';
+	ctx.fillRect(15, 15, TIMER_BAR_WIDTH * widthCoefficient, 10);
+	ctx.strokeStyle = 'rgb(120, 120, 120)';
+	ctx.lineWidth = 1;
+	ctx.strokeRect(15, 15, TIMER_BAR_WIDTH, 10);
+	/*
 	ctx.font = '12px IBM Plex Mono Light';
 	ctx.fillStyle = 'black';
 	ctx.fillText(GENERATION_TIMEOUT - timer, 15, 25);
+	*/
 }
 
 function loop(ctx) {
 	updateFighters();
 	updateBullets();
-	timer = Math.floor((new Date().getTime() - startTime) / 1000);
+	timer = Math.floor((new Date().getTime() - lastHitTime) / 1000);
 	render(ctx);
 	updateLeaderboard();
 	updateNotifications();
@@ -456,7 +469,7 @@ window.onload = function() {
 	ctx = canvas.getContext('2d');
 
 	// initialize timer
-	startTime = new Date().getTime();
+	startTime = lastHitTime = new Date().getTime();
 	timer = 0;
 
 	generation = 1;
