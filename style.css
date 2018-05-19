@@ -157,6 +157,10 @@ input {
 	width: 150px;
 }
 
+select {
+	width: 150px;
+}
+
 .blockTitle {
 	margin-bottom: 20px;
 	text-decoration: underline;

@@ -61,10 +61,24 @@
 					<div class="help-tip">
 						<p>Probability that any given gene will mutate.</p>
 					</div>
-				</div>	
-				<div id="btnWrapper">
-					<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
 				</div>
+				<div class="option">
+					<label for="crossoverTechnique">Crossover Technique</label>
+					<select id="crossoverTechnique">
+						<option value="1pt">Single-point</option>
+						<option value="2pt">Two-point</option>
+						<option value="uni">Uniform</option>
+					</select>
+					<a href="https://en.wikipedia.org/wiki/Crossover_(genetic_algorithm)#Techniques" target="_blank">
+						<div class="help-tip">
+							<p>Method used to cross genomes for new offspring.<br>Click for more information.</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<br>
+			<div id="btnWrapper">
+				<input type="submit" name="newPop" value="Create Population" onclick="createNewPopulation()">
 			</div>
 		</div>
 		<div id="createBlock">

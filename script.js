@@ -16,11 +16,12 @@ const GENERATION_TIMEOUT = 5;		// number of seconds to wait after damage before 
 const TIMER_BAR_WIDTH    = 100;		// width of timer bar in pixels
 
 // User-alterable settings
-var POPULATION_SIZE    = 10;	// number of fighters in population
-var GENOME_LENGTH      = 20;	// number of genes in fighter genome (actions in loop)
-var CULL_COUNT         = 2;		// number of weakest fighters to replace in each generation
-var MUTATION_PROB	   = 0.05;	// probability that any given gene will mutate
-var OUTSIDER_INTERVAL  = 5;		// interval of generations when an outsider is introduced into the population
+var POPULATION_SIZE     = 10;		// number of fighters in population
+var GENOME_LENGTH       = 20;		// number of genes in fighter genome (actions in loop)
+var CULL_COUNT          = 2;		// number of weakest fighters to replace in each generation
+var MUTATION_PROB	    = 0.05;		// probability that any given gene will mutate
+var OUTSIDER_INTERVAL   = 5;		// interval of generations when an outsider is introduced into the population
+var CROSSOVER_TECHNIQUE = '1pt';	// Method used for crossing genomes for new offspring
 
 function showNotification(message) {
 	var n = document.getElementById('notification');
@@ -86,9 +87,27 @@ function insertCustomFighter() {
 }
 
 function crossGenomes(g1, g2, ratio) {
-	var divider = Math.floor(ratio * GENOME_LENGTH);
-	var g3 = g1.substring(0, divider) + g2.substring(divider);
-	return g3;
+	switch(CROSSOVER_TECHNIQUE) {
+		case '1pt':
+			var divPt = Math.floor(ratio * GENOME_LENGTH);
+			return g1.substring(0, divPt) + g2.substring(divPt);
+		case '2pt':
+			var divPt1 = Math.floor(ratio * (GENOME_LENGTH / 2));
+			var divPt2 = Math.floor((1 - ratio) * (GENOME_LENGTH / 2)) + Math.floor(GENOME_LENGTH / 2);
+			return g1.substring(0, divPt1) + g2.substring(divPt1, divPt2) + g1.substring(divPt2);
+		case 'uni':
+			var genome = '';
+			for(var i = 0; i < GENOME_LENGTH; i++) {
+				if(Math.random() <= ratio) {
+					genome += g1.charAt(i);
+				} else {
+					genome += g2.charAt(i);
+				}
+			}
+			return genome;
+		default:
+			console.log('Invalid crossover technique.');
+	}
 }
 
 function mutateGenome(genome) {
@@ -145,7 +164,7 @@ function updateLeaderboard() {
 
 	// add table caption
 	var cap = document.createElement('caption');
-	cap.appendChild(document.createTextNode('Generation ' + generation))
+	cap.appendChild(document.createTextNode('Generation ' + generation));
 	tab.appendChild(cap);
 
 	// add fighter data
@@ -190,7 +209,7 @@ function startNewGeneration() {
 	for(var i = 0; i < fighters.length; i++) {
 		// give any surviving fighters a score
 		if(fighters[i].health > 0)
-			fighters[i].score = (new Date().getTime() - startTime) + fighters[i].health;
+			fighters[i].score = (new Date().getTime() - startTime) + (fighters[i].health * 100);
 
 		// update generations survived
 		fighters[i].generationsSurvived++;
@@ -262,6 +281,7 @@ function createNewPopulation() {
 	var outsiderIntInput = document.getElementById('outsiderInt');
 	var genomeLenInput = document.getElementById('genomeLen');
 	var mutateProbInput = document.getElementById('mutateProb');
+	var crossTechniqueInput = document.getElementById('crossoverTechnique');
 
 	// guards
 	if(popSizeInput.value < 3 || popSizeInput.value - cullCountInput.value < 2) {
@@ -295,6 +315,7 @@ function createNewPopulation() {
 	OUTSIDER_INTERVAL = outsiderIntInput.value;
 	GENOME_LENGTH = genomeLen.value;
 	MUTATION_PROB = mutateProbInput.value;
+	CROSSOVER_TECHNIQUE = crossTechniqueInput.value;
 
 	document.getElementById('genomeLenHelp').innerHTML = GENOME_LENGTH;
 	document.getElementById('customGenome').maxLength = GENOME_LENGTH;
